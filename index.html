@@ -3,15 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173f35">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#173f35">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="description" content="اقرأ القرآن الكريم بالرسم العثماني، وابحث في السور والآيات واحفظ موضع قراءتك.">
   <title>القرآن الكريم</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <a class="brand" href="#" aria-label="الصفحة الرئيسية"><span class="brand-mark">۞</span><span>القرآن الكريم<small>وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</small></span></a>
-    <button id="themeBtn" class="icon-btn" aria-label="تبديل المظهر" title="تبديل المظهر">◐</button>
+    <div class="header-tools">
+      <select id="surahSelect" aria-label="اختر السورة"><option value="">جارٍ تحميل السور…</option></select>
+      <div class="header-modes" aria-label="نوع القراءة">
+        <button id="onlineBtn" class="mode-btn active" aria-pressed="true">مباشر</button>
+        <button id="downloadOneBtn" class="mode-btn" aria-pressed="false">تحميل السورة</button>
+        <button id="downloadAllBtn" class="mode-btn" aria-pressed="false">تحميل الكل</button>
+      </div>
+      <div class="header-search" id="headerSearch">
+        <button id="searchToggle" class="icon-btn" aria-label="فتح البحث" title="بحث">⌕</button>
+        <input id="searchInput" type="search" placeholder="ابحث في السور والآيات…" autocomplete="off" aria-label="البحث">
+      </div>
+      <button id="themeBtn" class="icon-btn" aria-label="تبديل المظهر" title="تبديل المظهر">◐</button>
+    </div>
   </header>
   <main class="shell">
     <section class="hero">
@@ -28,7 +42,8 @@
       <label class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="ابحث في أسماء السور أو نص الآيات…" autocomplete="off"></label>
       <select id="surahSelect" aria-label="اختر السورة"><option value="">جارٍ تحميل السور…</option></select>
     </section>
-    <section class="download-panel" aria-label="خيارات القراءة">\n      <div><strong>كيف تريد القراءة؟</strong><small>اختر ما يناسب اتصالك ومساحة جهازك</small></div>\n      <div class="download-actions"><button id="onlineBtn" class="mode-btn">قراءة مباشرة</button><button id="downloadOneBtn" class="mode-btn">تحميل السورة</button><button id="downloadAllBtn" class="mode-btn primary-mode">تحميل القرآن كاملاً</button></div>\n      <p id="offlineStatus" class="storage-status">يتم حفظ السور التي تفتحها فقط</p><p id="downloadProgress" class="download-progress" hidden></p>\n    </section>\n    <section class="content-grid">
+    <p id="offlineStatus" class="storage-status shell-status">يتم حفظ السور التي تفتحها فقط</p><p id="downloadProgress" class="download-progress shell-status" hidden></p>
+    <section class="content-grid">
       <aside class="sidebar">
         <div class="section-heading"><h2>فهرس السور</h2><span id="surahCount" class="muted">114 سورة</span></div>
         <div id="surahList" class="surah-list"><div class="loading">جارٍ تحميل الفهرس…</div></div>
@@ -45,6 +60,7 @@
     <footer><p>القراءة المباشرة لا تنزّل إلا السورة المطلوبة، ويمكن حفظ سورة منفردة أو القرآن كاملاً للاستخدام دون إنترنت.</p><p>هذا المشروع للقراءة والتيسير، ويُرجى الرجوع إلى المصحف المعتمد عند المراجعة والحفظ.</p><a href="https://alquran.cloud/api" target="_blank" rel="noopener">مصدر البيانات وتوثيق API</a> · <a href="https://github.com/abud3d/quran" target="_blank" rel="noopener">مستودع المشروع</a>
     </footer>
   </main>
+  <button id="backToTop" class="back-to-top" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
   <div id="status" class="status" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
 </body>
