@@ -49,7 +49,9 @@
           <div><span class="muted">المصحف الشريف</span><h2>اختر سورة للبدء</h2></div>
           <span class="ornament">۞</span>
         </div>
+        <div class="listen-bar"><label>القارئ <select id="reciterSelect" aria-label="اختر القارئ"><option value="ar.alafasy">مشاري العفاسي</option><option value="ar.husary">محمود خليل الحصري</option><option value="ar.minshawi">محمد صديق المنشاوي</option><option value="ar.sudais">عبدالرحمن السديس</option><option value="ar.shuraim">سعود الشريم</option><option value="ar.abdulbasit">عبدالباسط عبدالصمد</option></select></label><audio id="audioPlayer" controls preload="none"></audio></div>
         <div id="verses" class="verses"><div class="welcome"><div class="welcome-symbol">﷽</div><p>اختر سورة من الفهرس لعرض آياتها</p></div></div>
+        <section id="tafsirPanel" class="tafsir-panel" hidden><div class="tafsir-heading"><strong>تفسير الآية</strong><label>كتاب التفسير <select id="tafsirSelect"><option value="ar.muyassar">التفسير الميسر</option><option value="ar.jalalayn">تفسير الجلالين</option><option value="ar.waseet">التفسير الوسيط</option></select></label></div><p id="tafsirText"></p><small>مصدر التفسير: AlQuran Cloud، مع نسبة التفسير إلى مصدره الأصلي.</small></section>
         <div class="reader-footer"><button id="prevBtn" class="soft-btn" disabled>السورة السابقة</button><button id="nextBtn" class="soft-btn" disabled>السورة التالية</button></div>
       </section>
     </section>
