@@ -87,9 +87,21 @@ $('surahSelect').addEventListener('change',e=>{if(e.target.value)loadSurah(Numbe
 $('searchInput').addEventListener('input',e=>{renderList(e.target.value);clearTimeout(searchTimer);const q=e.target.value;if(q.trim().length>=2)searchTimer=setTimeout(()=>searchAyahs(q),350);else if(!q.trim()&&current)loadSurah(current)});
 $('prevBtn').addEventListener('click',()=>current>1&&loadSurah(current-1));$('nextBtn').addEventListener('click',()=>current<114&&loadSurah(current+1));
 $('continueBtn').addEventListener('click',()=>{const last=saved();loadSurah(last?.surah||1);$('reader').scrollIntoView({behavior:'smooth'})});
-$('downloadAllBtn').addEventListener('click',downloadFull);
-$('downloadOneBtn').addEventListener('click',()=>downloadOne(Number($('surahSelect').value||current)));
-$('onlineBtn').addEventListener('click',()=>{onlineMode=true;notify('وضع القراءة المباشرة: تُحمّل السورة عند طلبها فقط')});
+
+function setMode(mode){
+  onlineMode=mode==='online';
+  ['onlineBtn','downloadOneBtn','downloadAllBtn'].forEach(id=>{
+    const b=$(id),active=(id==='onlineBtn'&&mode==='online')||(id==='downloadOneBtn'&&mode==='one')||(id==='downloadAllBtn'&&mode==='all');
+    b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+  });
+}
+$('onlineBtn').addEventListener('click',()=>{setMode('online');notify('القراءة المباشرة: تُجلب السورة عند اختيارها فقط')});
+$('downloadOneBtn').addEventListener('click',async()=>{setMode('one');const n=Number($('surahSelect').value||current);if(n)try{await downloadOne(n)}catch(e){notify(e.message)}});
+$('downloadAllBtn').addEventListener('click',()=>{setMode('all');downloadFull()});
+$('searchToggle').addEventListener('click',()=>{const box=$('headerSearch');box.classList.toggle('expanded');if(box.classList.contains('expanded'))$('searchInput').focus();else{$('searchInput').value='';renderList();}});
+let lastScroll=window.scrollY;
+window.addEventListener('scroll',()=>{const y=window.scrollY,bar=$('topbar');if(y<80)bar.classList.remove('header-hidden');else if(y>lastScroll+5)bar.classList.add('header-hidden');else if(y<lastScroll-5)bar.classList.remove('header-hidden');lastScroll=y;$('backToTop').classList.toggle('visible',y>300);},{passive:true});
+$('backToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 $('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('dark');localStorage.setItem('quran-dark',document.body.classList.contains('dark')?'1':'0')});
 if(localStorage.getItem('quran-dark')==='1')document.body.classList.add('dark');
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
