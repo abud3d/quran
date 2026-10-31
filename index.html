@@ -29,7 +29,7 @@
       <label class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="ابحث في أسماء السور أو نص الآيات…" autocomplete="off"></label>
       <select id="surahSelect" aria-label="اختر السورة"><option value="">جارٍ تحميل السور…</option></select>
     </section>
-    <section class="content-grid">
+    <section class="download-panel" aria-label="خيارات القراءة">\n      <div><strong>كيف تريد القراءة؟</strong><small>اختر ما يناسب اتصالك ومساحة جهازك</small></div>\n      <div class="download-actions"><button id="onlineBtn" class="mode-btn">قراءة مباشرة</button><button id="downloadOneBtn" class="mode-btn">تحميل السورة</button><button id="downloadAllBtn" class="mode-btn primary-mode">تحميل القرآن كاملاً</button></div>\n      <p id="offlineStatus" class="storage-status">يتم حفظ السور التي تفتحها فقط</p><p id="downloadProgress" class="download-progress" hidden></p>\n    </section>\n    <section class="content-grid">
       <aside class="sidebar">
         <div class="section-heading"><h2>فهرس السور</h2><span id="surahCount" class="muted">114 سورة</span></div>
         <div id="surahList" class="surah-list"><div class="loading">جارٍ تحميل الفهرس…</div></div>
@@ -43,7 +43,7 @@
         <div class="reader-footer"><button id="prevBtn" class="soft-btn" disabled>السورة السابقة</button><button id="nextBtn" class="soft-btn" disabled>السورة التالية</button></div>
       </section>
     </section>
-    <footer><p id="offlineStatus">النسخة المحلية تُجهّز على هذا الجهاز عند أول اتصال بالإنترنت.</p><p>بعد اكتمال التنزيل يمكن قراءة السور والبحث فيها دون اتصال بالإنترنت.</p><p>هذا المشروع للقراءة والتيسير، ويُرجى الرجوع إلى المصحف المعتمد عند المراجعة والحفظ.</p><a href="https://alquran.cloud/api" target="_blank" rel="noopener">مصدر البيانات وتوثيق API</a> · <a href="https://github.com/abud3d/quran" target="_blank" rel="noopener">مستودع المشروع</a>
+    <footer><p>القراءة المباشرة لا تنزّل إلا السورة المطلوبة، ويمكن حفظ سورة منفردة أو القرآن كاملاً للاستخدام دون إنترنت.</p><p>هذا المشروع للقراءة والتيسير، ويُرجى الرجوع إلى المصحف المعتمد عند المراجعة والحفظ.</p><a href="https://alquran.cloud/api" target="_blank" rel="noopener">مصدر البيانات وتوثيق API</a> · <a href="https://github.com/abud3d/quran" target="_blank" rel="noopener">مستودع المشروع</a>
     </footer>
   </main>
   <div id="status" class="status" role="status" aria-live="polite"></div>
