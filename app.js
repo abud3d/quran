@@ -115,12 +115,16 @@ async function loadPrayerTimes(){
     prayerTimes=j.data.timings;updatePrayerCountdown();
   }catch{$('nextPrayerName').textContent='تعذر تحميل المواقيت';$('prayerCountdown').textContent='';}
 }
+function riyadhYmd(date=new Date()){
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date),v={};
+  parts.forEach(x=>v[x.type]=x.value);return v.year+'-'+v.month+'-'+v.day;
+}
 function updatePrayerCountdown(){
   if(!prayerTimes)return;
-  const now=new Date(),names=[['Fajr','الفجر'],['Dhuhr','الظهر'],['Asr','العصر'],['Maghrib','المغرب'],['Isha','العشاء']];
+  const now=new Date(),today=riyadhYmd(now),names=[['Fajr','الفجر'],['Dhuhr','الظهر'],['Asr','العصر'],['Maghrib','المغرب'],['Isha','العشاء']];
   let next=null,when=null;
-  for(const [key,label] of names){const [h,m]=String(prayerTimes[key]).split(':').map(Number);const d=new Date(now);d.setHours(h,m,0,0);if(d>now){next=label;when=d;break}}
-  if(!when){const [h,m]=String(prayerTimes.Fajr).split(':').map(Number);when=new Date(now);when.setDate(when.getDate()+1);when.setHours(h,m,0,0);next='الفجر'}
+  for(const [key,label] of names){const time=String(prayerTimes[key]).slice(0,5);const d=new Date(today+'T'+time+':00+03:00');if(d>now){next=label;when=d;break}}
+  if(!when){const tomorrow=riyadhYmd(new Date(now.getTime()+86400000)),time=String(prayerTimes.Fajr).slice(0,5);when=new Date(tomorrow+'T'+time+':00+03:00');next='الفجر'}
   let sec=Math.max(0,Math.floor((when-now)/1000)),hh=Math.floor(sec/3600),mm=Math.floor(sec%3600/60),ss=sec%60;
   $('nextPrayerName').textContent=next;
   $('prayerCountdown').textContent=[hh,mm,ss].map(x=>String(x).padStart(2,'0')).join(':');
