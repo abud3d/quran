@@ -12,3 +12,20 @@
 .mode-btn:disabled{opacity:.55;cursor:wait}
 .storage-status,.download-progress{font-size:11px;color:var(--muted);margin:10px 0 0}
 .download-progress{color:var(--green2)}
+
+/* Smart compact header */
+.topbar{position:sticky;top:0;z-index:1000;min-height:72px;height:auto;gap:16px;transition:transform .25s ease,box-shadow .25s ease;padding-top:10px;padding-bottom:10px}
+.topbar.header-hidden{transform:translateY(-110%);box-shadow:none}
+.header-tools{display:flex;align-items:center;gap:9px;min-width:0}
+.header-tools select{height:40px;min-width:150px;max-width:210px}
+.header-modes{display:flex;gap:5px}
+.header-modes .mode-btn{padding:8px 10px;white-space:nowrap;font-size:12px}
+.header-modes .mode-btn.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 0 0 2px #b18a4c22}
+.header-search{display:flex;align-items:center;position:relative}
+.header-search input{width:0;opacity:0;padding:0;border:0;outline:0;background:var(--paper);color:var(--ink);border-radius:9px;transition:width .25s ease,opacity .2s ease}
+.header-search.expanded input{width:220px;opacity:1;padding:9px 12px;border:1px solid var(--line);margin-right:6px}
+.shell-status{text-align:center;margin:8px 0;color:var(--muted);font-size:11px}
+.back-to-top{position:fixed;z-index:900;left:22px;bottom:22px;width:44px;height:44px;border:0;border-radius:50%;background:var(--green);color:white;font-size:24px;box-shadow:var(--shadow);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}
+.back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+@media(max-width:850px){.topbar{align-items:flex-start;flex-direction:column;gap:8px;padding:9px 14px}.header-tools{width:100%;flex-wrap:wrap;gap:6px}.header-tools select{flex:1;min-width:125px}.header-modes{order:3;width:100%;justify-content:space-between}.header-modes .mode-btn{flex:1}.header-search.expanded{flex:1}.header-search.expanded input{width:clamp(100px,35vw,220px)}}
+@media(max-width:420px){.brand{font-size:16px}.header-tools select{font-size:12px}.header-modes .mode-btn{font-size:11px;padding:7px 5px}.back-to-top{left:14px;bottom:14px}}
