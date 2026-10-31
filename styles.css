@@ -29,3 +29,21 @@
 .back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 @media(max-width:850px){.topbar{align-items:flex-start;flex-direction:column;gap:8px;padding:9px 14px}.header-tools{width:100%;flex-wrap:wrap;gap:6px}.header-tools select{flex:1;min-width:125px}.header-modes{order:3;width:100%;justify-content:space-between}.header-modes .mode-btn{flex:1}.header-search.expanded{flex:1}.header-search.expanded input{width:clamp(100px,35vw,220px)}}
 @media(max-width:420px){.brand{font-size:16px}.header-tools select{font-size:12px}.header-modes .mode-btn{font-size:11px;padding:7px 5px}.back-to-top{left:14px;bottom:14px}}
+
+/* Listening and tafsir */
+.listen-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid var(--line)}
+.listen-bar label,.tafsir-heading label{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}
+.listen-bar select,.tafsir-heading select{height:36px;font-size:12px}
+.listen-bar audio{height:38px;flex:1;min-width:190px;max-width:440px}
+.ayah-item{padding:11px 10px;margin:5px 0;border-radius:10px;line-height:2.1;transition:background .2s}
+.ayah-item.playing{background:#dce9df;box-shadow:inset -3px 0 var(--gold)}
+.dark .ayah-item.playing{background:#2d493a}
+.ayah-item .ayah{font-size:27px}
+.ayah-actions{display:inline-flex;gap:5px;vertical-align:middle;margin:0 6px}
+.ayah-action{font:inherit;font-size:11px;border:1px solid var(--line);background:var(--soft);color:var(--green);border-radius:7px;padding:4px 7px;cursor:pointer}
+.ayah-action:hover{border-color:var(--gold)}
+.tafsir-panel{margin:14px 0;padding:17px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
+.tafsir-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;color:var(--green)}
+.tafsir-panel p{font-family:Amiri,serif;font-size:20px;line-height:2;margin:12px 0;color:var(--ink);white-space:pre-wrap}
+.tafsir-panel small{color:var(--muted);font-size:10px}
+@media(max-width:600px){.listen-bar{align-items:stretch}.listen-bar label{justify-content:space-between}.listen-bar audio{max-width:none;width:100%}.ayah-item .ayah{font-size:24px}.tafsir-panel p{font-size:18px}}
