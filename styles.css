@@ -47,3 +47,50 @@
 .tafsir-panel p{font-family:Amiri,serif;font-size:20px;line-height:2;margin:12px 0;color:var(--ink);white-space:pre-wrap}
 .tafsir-panel small{color:var(--muted);font-size:10px}
 @media(max-width:600px){.listen-bar{align-items:stretch}.listen-bar label{justify-content:space-between}.listen-bar audio{max-width:none;width:100%}.ayah-item .ayah{font-size:24px}.tafsir-panel p{font-size:18px}}
+
+/* Compact Quran layout, ayah dialog, favorites and daily information */
+.header-nav{display:flex;align-items:center;gap:10px}
+.nav-link{font:inherit;border:0;background:transparent;color:var(--green);font-weight:600;padding:9px 12px;cursor:pointer;border-radius:9px}
+.nav-link:hover{background:var(--soft)}
+.favorites-count{font-size:11px;background:var(--soft);padding:2px 6px;border-radius:20px}
+.index-panel{position:absolute;top:calc(100% + 4px);right:5vw;width:min(360px,90vw);max-height:70vh;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:12px;z-index:1200}
+.index-panel[hidden],.city-picker[hidden],.favorites-view[hidden],.modal-backdrop[hidden]{display:none}
+.index-panel-head,.favorites-heading,.favorite-item-head,.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.index-panel .surah-list{max-height:58vh;overflow:auto}
+.reading-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:18px 0}
+.reading-controls>select{height:42px;min-width:160px}
+.reading-controls input{height:42px;flex:1;min-width:190px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);padding:0 13px;font:inherit}
+.reading-modes{display:flex;gap:5px;flex-wrap:wrap}
+.content-grid{display:block}
+.daily-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:680px;margin:22px auto 0}
+.daily-card{display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;padding:12px;border:1px solid #ffffff40;border-radius:12px;background:#ffffff12;color:#fff;font:inherit}
+.daily-card>span{font-size:11px;color:#e4eadd}
+.daily-card>strong{font-size:15px}
+.prayer-card{cursor:pointer}
+.prayer-card b{font-size:21px;color:#f0d59e;direction:ltr;font-variant-numeric:tabular-nums}
+.prayer-card small{font-size:10px;color:#dce8df}
+.city-picker{max-width:320px;margin:10px auto 0;padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.city-picker label{display:block;font-size:12px;margin-bottom:7px}
+.city-picker select{width:100%;height:40px}
+.ayah-item{display:inline}
+.ayah-item .ayah{display:inline}
+.ayah-marker{cursor:pointer;background:transparent;padding:0}
+.ayah-marker:hover{background:var(--soft);border-color:var(--gold)}
+.ayah-actions{display:none}
+.ayah-modal{width:min(760px,94vw);max-height:85vh;overflow:auto;background:var(--paper);border-radius:16px;padding:20px;box-shadow:var(--shadow);color:var(--ink)}
+.modal-backdrop{position:fixed;inset:0;background:#101a16b8;display:flex;align-items:center;justify-content:center;padding:15px;z-index:3000}
+.modal-head{border-bottom:1px solid var(--line);padding-bottom:12px;color:var(--green)}
+.modal-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:13px 0}
+.modal-actions label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.modal-actions select{height:36px}
+.modal-ayah-text{font-family:Amiri,serif;font-size:30px;line-height:2.2;text-align:center;margin:15px 0;color:var(--ink)}
+.modal-tafsir{border-top:1px solid var(--line);padding:15px 5px;font-family:Amiri,serif;font-size:20px;line-height:2;white-space:pre-wrap}
+.favorites-view{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:22px;margin-top:16px}
+.favorites-heading{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:12px}
+.favorites-heading h2{margin:4px 0;color:var(--green)}
+.favorite-item{padding:16px 4px;border-bottom:1px solid var(--line)}
+.favorite-item .ayah{display:block;font-size:24px;line-height:2;margin:12px 0}
+.danger-btn,.danger-link{border:1px solid #b65b54;background:transparent;color:#b65b54;border-radius:8px;padding:7px 12px;cursor:pointer;font:inherit;font-size:12px}
+.danger-link{border:0;padding:4px}
+#backToReader{margin-top:15px}
+@media(max-width:650px){.topbar{flex-direction:row;align-items:center;min-height:64px}.header-nav{gap:2px}.nav-link{padding:7px;font-size:12px}.header-nav .icon-btn{width:34px;height:34px}.daily-info{grid-template-columns:1fr 1fr;gap:7px}.daily-card{padding:9px 5px}.daily-card>strong{font-size:13px}.prayer-card b{font-size:18px}.reading-controls{align-items:stretch}.reading-controls>select,.reading-controls input{width:100%;max-width:none}.reading-modes{width:100%}.reading-modes .mode-btn{flex:1;font-size:11px;padding:8px 5px}.modal-ayah-text{font-size:25px}.modal-actions .mode-btn{font-size:11px;padding:7px}}
