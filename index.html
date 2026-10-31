@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f35">
+  <meta name="description" content="اقرأ القرآن الكريم بالرسم العثماني، وابحث في السور والآيات واحفظ موضع قراءتك.">
+  <title>القرآن الكريم</title>
+  <link rel="preconnect" href="https://api.alquran.cloud">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="الصفحة الرئيسية"><span class="brand-mark">۞</span><span>القرآن الكريم<small>وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</small></span></a>
+    <button id="themeBtn" class="icon-btn" aria-label="تبديل المظهر" title="تبديل المظهر">◐</button>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-pattern"></div>
+      <p class="eyebrow">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <h1>اقرأ… وتدبّر</h1>
+      <p>مصحف إلكتروني بسيط يساعدك على تلاوة كتاب الله</p>
+      <div class="hero-actions">
+        <button id="continueBtn" class="primary-btn">متابعة القراءة</button>
+        <a class="ghost-btn" href="#reader">ابدأ القراءة</a>
+      </div>
+    </section>
+    <section class="toolbar" aria-label="أدوات البحث">
+      <label class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="ابحث في أسماء السور أو نص الآيات…" autocomplete="off"></label>
+      <select id="surahSelect" aria-label="اختر السورة"><option value="">جارٍ تحميل السور…</option></select>
+    </section>
+    <section class="content-grid">
+      <aside class="sidebar">
+        <div class="section-heading"><h2>فهرس السور</h2><span id="surahCount" class="muted">114 سورة</span></div>
+        <div id="surahList" class="surah-list"><div class="loading">جارٍ تحميل الفهرس…</div></div>
+      </aside>
+      <section id="reader" class="reader">
+        <div id="readerHeader" class="reader-header">
+          <div><span class="muted">المصحف الشريف</span><h2>اختر سورة للبدء</h2></div>
+          <span class="ornament">۞</span>
+        </div>
+        <div id="verses" class="verses"><div class="welcome"><div class="welcome-symbol">﷽</div><p>اختر سورة من الفهرس لعرض آياتها</p></div></div>
+        <div class="reader-footer"><button id="prevBtn" class="soft-btn" disabled>السورة السابقة</button><button id="nextBtn" class="soft-btn" disabled>السورة التالية</button></div>
+      </section>
+    </section>
+    <footer><p>النص القرآني يُجلب من خدمة AlQuran Cloud — إصدار <b>quran-uthmani</b>.</p><p>هذا المشروع للقراءة والتيسير، ويُرجى الرجوع إلى المصحف المعتمد عند المراجعة والحفظ.</p><a href="https://alquran.cloud/api" target="_blank" rel="noopener">مصدر البيانات وتوثيق API</a> · <a href="https://github.com/abud3d/quran" target="_blank" rel="noopener">مستودع المشروع</a>
+    </footer>
+  </main>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
