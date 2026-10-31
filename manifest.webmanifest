@@ -1,0 +1,12 @@
+{
+  "name": "القرآن الكريم",
+  "short_name": "القرآن",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5ef",
+  "theme_color": "#173f35",
+  "description": "قارئ قرآن يعمل دون إنترنت بعد تنزيل البيانات أول مرة."
+}
