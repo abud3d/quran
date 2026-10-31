@@ -1,4 +1,4 @@
-const SHELL_CACHE='quran-shell-v2';
+const SHELL_CACHE='quran-shell-v3';
 const SHELL=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL_CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>![SHELL_CACHE,'quran-data-v2'].includes(k)).map(k=>caches.delete(k)));await self.clients.claim()})()));
