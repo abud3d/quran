@@ -13,18 +13,14 @@
 <body>
   <header class="topbar" id="topbar">
     <a class="brand" href="#" aria-label="الصفحة الرئيسية"><span class="brand-mark">۞</span><span>القرآن الكريم<small>وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</small></span></a>
-    <div class="header-tools">
-      <select id="surahSelect" aria-label="اختر السورة"><option value="">جارٍ تحميل السور…</option></select>
-      <div class="header-modes" aria-label="نوع القراءة">
-        <button id="onlineBtn" class="mode-btn active" aria-pressed="true">مباشر</button>
-        <button id="downloadOneBtn" class="mode-btn" aria-pressed="false">تحميل السورة</button>
-        <button id="downloadAllBtn" class="mode-btn" aria-pressed="false">تحميل الكل</button>
-      </div>
-      <div class="header-search" id="headerSearch">
-        <button id="searchToggle" class="icon-btn" aria-label="فتح البحث" title="بحث">⌕</button>
-        <input id="searchInput" type="search" placeholder="ابحث في السور والآيات…" autocomplete="off" aria-label="البحث">
-      </div>
+    <nav class="header-nav" aria-label="التنقل الرئيسي">
+      <button id="indexToggle" class="nav-link" aria-expanded="false">☷ الفهرس</button>
+      <button id="favoritesToggle" class="nav-link">♡ المفضلة <span id="favoritesCount" class="favorites-count">0</span></button>
       <button id="themeBtn" class="icon-btn" aria-label="تبديل المظهر" title="تبديل المظهر">◐</button>
+    </nav>
+    <div id="indexPanel" class="index-panel" hidden>
+      <div class="index-panel-head"><strong>فهرس السور</strong><button id="closeIndex" class="icon-btn" aria-label="إغلاق الفهرس">×</button></div>
+      <div id="surahList" class="surah-list"><div class="loading">جارٍ تحميل الفهرس…</div></div>
     </div>
   </header>
   <main class="shell">
@@ -37,13 +33,34 @@
         <button id="continueBtn" class="primary-btn">متابعة القراءة</button>
         <a class="ghost-btn" href="#reader">ابدأ القراءة</a>
       </div>
+      <div class="daily-info">
+        <div class="daily-card"><span>التاريخ الهجري</span><strong id="hijriDate">جارٍ تحديد التاريخ…</strong></div>
+        <button id="prayerCard" class="daily-card prayer-card" type="button" aria-label="اختيار المدينة ومواقيت الصلاة">
+          <span>الصلاة القادمة · <strong id="prayerCityLabel">الرياض</strong></span>
+          <strong id="nextPrayerName">جارٍ تحميل المواقيت…</strong>
+          <b id="prayerCountdown">--:--:--</b>
+          <small>اضغط لاختيار المدينة</small>
+        </button>
+      </div>
+      <div id="cityPicker" class="city-picker" hidden>
+        <label for="citySelect">مدينة مواقيت الصلاة</label>
+        <select id="citySelect">
+          <option value="riyadh">الرياض</option><option value="makkah">مكة المكرمة</option>
+          <option value="eastern">المنطقة الشرقية</option><option value="hail">حائل</option><option value="abha">أبها</option>
+        </select>
+      </div>
     </section>
     <p id="offlineStatus" class="storage-status shell-status">يتم حفظ السور التي تفتحها فقط</p><p id="downloadProgress" class="download-progress shell-status" hidden></p>
+    <section class="reading-controls" aria-label="أدوات القراءة">
+      <select id="surahSelect" aria-label="اختر السورة"><option value="">جارٍ تحميل السور…</option></select>
+      <div class="reading-modes">
+        <button id="onlineBtn" class="mode-btn active" aria-pressed="true">قراءة مباشرة</button>
+        <button id="downloadOneBtn" class="mode-btn" aria-pressed="false">تحميل السورة</button>
+        <button id="downloadAllBtn" class="mode-btn" aria-pressed="false">تحميل القرآن كاملاً</button>
+      </div>
+      <input id="searchInput" type="search" placeholder="ابحث في السور والآيات…" autocomplete="off" aria-label="البحث">
+    </section>
     <section class="content-grid">
-      <aside class="sidebar">
-        <div class="section-heading"><h2>فهرس السور</h2><span id="surahCount" class="muted">114 سورة</span></div>
-        <div id="surahList" class="surah-list"><div class="loading">جارٍ تحميل الفهرس…</div></div>
-      </aside>
       <section id="reader" class="reader">
         <div id="readerHeader" class="reader-header">
           <div><span class="muted">المصحف الشريف</span><h2>اختر سورة للبدء</h2></div>
@@ -55,6 +72,24 @@
         <div class="reader-footer"><button id="prevBtn" class="soft-btn" disabled>السورة السابقة</button><button id="nextBtn" class="soft-btn" disabled>السورة التالية</button></div>
       </section>
     </section>
+    <section id="favoritesView" class="favorites-view" hidden>
+      <div class="favorites-heading"><div><span class="muted">مواضعك المحفوظة</span><h2>المفضلة</h2></div><button id="clearFavorites" class="danger-btn">حذف الكل</button></div>
+      <div id="favoritesList"></div>
+      <button id="backToReader" class="soft-btn">العودة للقراءة</button>
+    </section>
+    <div id="ayahModal" class="modal-backdrop" hidden>
+      <section class="ayah-modal" role="dialog" aria-modal="true" aria-labelledby="modalAyahTitle">
+        <div class="modal-head"><strong id="modalAyahTitle">الآية</strong><button id="closeAyahModal" class="icon-btn" aria-label="إغلاق">×</button></div>
+        <div class="modal-actions">
+          <button id="modalPlay" class="mode-btn">▶ استماع</button>
+          <button id="modalTafsir" class="mode-btn">تفسير</button>
+          <button id="modalFavorite" class="mode-btn">♡ أضف للمفضلة</button>
+          <label>التفسير <select id="modalTafsirSelect"><option value="ar.muyassar">الميسر</option><option value="ar.jalalayn">الجلالين</option><option value="ar.waseet">الوسيط</option></select></label>
+        </div>
+        <p id="modalAyahText" class="modal-ayah-text"></p>
+        <div id="modalTafsirText" class="modal-tafsir" hidden></div>
+      </section>
+    </div>
     <footer><p>القراءة المباشرة لا تنزّل إلا السورة المطلوبة، ويمكن حفظ سورة منفردة أو القرآن كاملاً للاستخدام دون إنترنت.</p><p>هذا المشروع للقراءة والتيسير، ويُرجى الرجوع إلى المصحف المعتمد عند المراجعة والحفظ.</p><a href="https://alquran.cloud/api" target="_blank" rel="noopener">مصدر البيانات وتوثيق API</a> · <a href="https://github.com/abud3d/quran" target="_blank" rel="noopener">مستودع المشروع</a>
     </footer>
   </main>
