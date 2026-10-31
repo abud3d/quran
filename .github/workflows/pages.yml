@@ -1,27 +1,45 @@
-name: Deploy static site to GitHub Pages
+name: Build Quran data and deploy
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
   group: "pages"
   cancel-in-progress: true
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build and validate all surahs
+        run: node scripts/build-quran-data.mjs
+      - name: Commit generated Quran files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add quran-data/
+          if ! git diff --cached --quiet; then
+            git commit -m "Add validated Quran surah data files"
+            git push
+          fi
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
+      - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
