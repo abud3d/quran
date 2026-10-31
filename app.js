@@ -1,7 +1,7 @@
 const API='https://api.alquran.cloud/v1';
 const CACHE='quran-data-v2';
 const $=id=>document.getElementById(id);
-let surahs=[],allAyahs=Array(114).fill(null),current=0,searchTimer,onlineMode=true,playingIndex=-1,currentTafsirAyah=null,tafsirCache={},modalAyahIndex=null,prayerTimes=null,prayerTimer=null;
+let surahs=[],allAyahs=Array(114).fill(null),current=0,searchTimer,onlineMode=true,playingIndex=-1,currentTafsirAyah=null,tafsirCache={},modalAyahIndex=null,prayerTimes=null,prayerTimer=null,lastPrayerDate='';
 const saved=()=>{try{return JSON.parse(localStorage.getItem('quran-last-read')||'null')}catch{return null}};
 function notify(msg){const el=$('status');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3200)}
 async function request(url){
@@ -81,7 +81,7 @@ function toggleFavorite(){
 }
 function showFavorites(){
   $('favoritesView').hidden=false;$('reader').parentElement.hidden=true;
-  const items=getFavorites().slice().sort((a,b)=>b.addedAt-a.addedAt),list=$('favoritesList');list.innerHTML='';
+  const items=getFavorites().slice().sort((a,b)=>a.addedAt-b.addedAt),list=$('favoritesList');list.innerHTML='';
   if(!items.length)list.innerHTML='<p class="empty">لا توجد آيات في المفضلة بعد.</p>';
   items.forEach(item=>{
     const card=document.createElement('article');card.className='favorite-item';
@@ -107,6 +107,7 @@ function hijriToday(){
 }
 function riyadhDateParts(){const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Riyadh',day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=x.value);return v.day+'-'+v.month+'-'+v.year}
 async function loadPrayerTimes(){
+  lastPrayerDate=riyadhDateParts();
   const city=cities[$('citySelect').value]||cities.riyadh;$('prayerCityLabel').textContent=city.name;$('nextPrayerName').textContent='جارٍ تحميل المواقيت…';
   try{
     const url='https://api.aladhan.com/v1/timings/'+riyadhDateParts()+'?latitude='+city.lat+'&longitude='+city.lon+'&method=4&calendarMethod=UAQ&timezonestring=Asia%2FRiyadh';
@@ -197,7 +198,7 @@ async function init(){
   }catch(e){$('surahList').innerHTML='<div class="empty">تعذر تحميل الفهرس. تحقق من اتصال الإنترنت.</div>';notify(e.message)}
 }
 $('surahSelect').addEventListener('change',e=>{if(e.target.value)loadSurah(Number(e.target.value))});
-$('searchInput').addEventListener('input',e=>{clearTimeout(searchTimer);const q=e.target.value;if(q.trim().length>=2)searchTimer=setTimeout(()=>searchAyahs(q),350);else if(!q.trim()&&current)loadSurah(current)});
+$('searchInput').addEventListener('input',e=>{clearTimeout(searchTimer);const q=e.target.value;if(!$('indexPanel').hidden)renderList(q);if(q.trim().length>=2)searchTimer=setTimeout(()=>searchAyahs(q),350);else if(!q.trim()&&current)loadSurah(current)});
 $('prevBtn').addEventListener('click',()=>current>1&&loadSurah(current-1));$('nextBtn').addEventListener('click',()=>current<114&&loadSurah(current+1));
 $('continueBtn').addEventListener('click',()=>{const last=saved();loadSurah(last?.surah||1);$('reader').scrollIntoView({behavior:'smooth'})});
 
@@ -226,7 +227,7 @@ $('prayerCard').addEventListener('click',()=>{$('cityPicker').hidden=!$('cityPic
 $('citySelect').addEventListener('change',()=>{localStorage.setItem('quran-prayer-city',$('citySelect').value);loadPrayerTimes()});
 $('citySelect').value=localStorage.getItem('quran-prayer-city')||'riyadh';
 $('hijriDate').textContent=hijriToday();loadPrayerTimes();
-if(prayerTimer)clearInterval(prayerTimer);prayerTimer=setInterval(()=>{updatePrayerCountdown();const d=hijriToday();if($('hijriDate').textContent!==d)$('hijriDate').textContent=d},1000);
+if(prayerTimer)clearInterval(prayerTimer);prayerTimer=setInterval(()=>{updatePrayerCountdown();const d=hijriToday();if($('hijriDate').textContent!==d)$('hijriDate').textContent=d;if(riyadhDateParts()!==lastPrayerDate)loadPrayerTimes()},1000);
 let lastScroll=window.scrollY;
 window.addEventListener('scroll',()=>{const y=window.scrollY,bar=$('topbar');if(y<80)bar.classList.remove('header-hidden');else if(y>lastScroll+5)bar.classList.add('header-hidden');else if(y<lastScroll-5)bar.classList.remove('header-hidden');lastScroll=y;$('backToTop').classList.toggle('visible',y>300);},{passive:true});
 $('backToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
